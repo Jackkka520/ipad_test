@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #chat-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            height: 200px;
+            overflow-y: scroll;
+        }
+        #message-input {
+            width: 70%;
+            padding: 8px;
+        }
+        #send-button {
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Chat</h1>
+
+    <div id="chat-container"></div>
+
+    <input type="text" id="message-input" placeholder="Type your message...">
+    <button id="send-button" onclick="sendMessage()">Send</button>
+
+    <script>
+        const responses = [
+            "That's interesting!",
+            "Tell me more!",
+            "I didn't know that.",
+            "How do you feel about that?",
+            "Interesting!",
+            "Great!",
+            "Wow!",
+            "Cool!",
+            "Nice!",
+            "Awesome!"
+        ];
+
+        function getRandomResponse() {
+            const randomIndex = Math.floor(Math.random() * responses.length);
+            return responses[randomIndex];
+        }
+
+        function appendMessage(message, sender) {
+            const chatContainer = document.getElementById('chat-container');
+            const messageElement = document.createElement('p');
+            messageElement.textContent = `${sender}: ${message}`;
+            chatContainer.appendChild(messageElement);
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value;
+
+            if (message.trim() !== "") {
+                appendMessage(message, 'You');
+                messageInput.value = '';
+
+                // Simulating a response after a short delay
+                setTimeout(() => {
+                    const response = getRandomResponse();
+                    appendMessage(response, 'Bot');
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
